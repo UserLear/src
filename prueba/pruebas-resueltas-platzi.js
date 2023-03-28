@@ -1,9 +1,7 @@
-
 //4-encontrar el tipo de dato
 function solution(valor) {
   return typeof valor;
 }
-
 
 //7-calcula la propina
 function calculateTip(billAmount, tipPercentage) {
@@ -11,7 +9,7 @@ function calculateTip(billAmount, tipPercentage) {
 }
 
 //11-AÑO BISIESTO
-functionisLeapYear(year) {
+function isLeapYear(year) {
   // Primero verificamos que el número sea positivo
   // Y además el número sea entero
   if(year % 1 != 0 || year <= 0){
@@ -67,9 +65,8 @@ function getPetExerciseInfo(type, age) {
   }
 
 }
-//15-dibuja un tiangulo
- //forma un tiangulo isosceles
- export function printTriangle(size, character) {
+//15-dibuja un tiangulo-si funciona
+ function printTriangle(size, character) {
   let triangle = "";
   let newSize = Number(size);
 
@@ -94,6 +91,7 @@ function getPetExerciseInfo(type, age) {
 
   return triangle;
 }
+console.log(printTriangle(5, "8")); 
 
 //17-ENCUENTRA AL MICHI MAS FAMOSO
 function findFamousCats(cats) {
@@ -137,4 +135,70 @@ function findFamousCats(cats) {
   // Al final solo retornamos LOS NOMBRES
   return famousStats.catNames;
 }
+
+//19 ENCUENTRA EL PROMEDIO ESTUDIANTES
+function getStudentAverage(students) {
+  // Creamos un array donde obtendremos los estudiantes con su promedio
+  const studentsWithAverage = students.map((student) => {
+    // separamos las notas en una sola variable para hacerlo más legible
+    const grades = student.grades;
+    // calculamos el promedio sumando todas las notas para dividirlas
+    // en el total de materias
+    const average =
+      grades.reduce((total, item) => total + item, 0) / grades.length;
+
+    return {
+      // Retornamos un objeto con el nombre del estudiante
+      name: student.name,
+      // Junto con su promedio a 2 decimales
+      // Es importante parsearlo con Number porque el método toFixed devuelve un string
+      average: Number(average.toFixed(2)),
+    };
+  });
+
+  // Después pasamos a hacer lo mismo pero obteniendo el promedio de la clase
+  const classAverage =
+    studentsWithAverage.reduce((total, student) => total + student.average, 0) /
+    studentsWithAverage.length;
+  // Sumamos todos los promedios y los dividimos entre el total de estudiantes
+
+  // Al final armamos un objeto que será el que retornaremos
+  const rta = {
+    // De igual manera pasamos el promedio de la clase a 2 decimales
+    classAverage: Number(classAverage.toFixed(2)),
+    students: studentsWithAverage,
+  };
+
+  // Y retornamos el objeto anterior
+  return rta;
+}
  
+//20 ENCUENTRA EL MAYOR PALINDROMO
+export function findLargestPalindrome(words) {
+  // Primero definimos que la palabra más larga es null
+  // Debido a que no se tiene un valor 
+  let largest = null;
+  // Después iteramos por cada una de las palabras
+  for (const word of words) {
+    // con split("") creamos un array donde cada elemento es una letra
+    // Ejemplo "hola" => ["h","o","l","a"]
+    // con reverse() "volteamos" el array
+    // Ejemplo ["h","o","l","a"] => ["a"","l","o","h"]
+    // y con .join("") volvemos a convertirlo en un string
+    // Ejemplo  ["a"","l","o","h"] => "aloh"
+    const reversedWord = word.split("").reverse().join("");
+    // La primer validación que hacemos es para ver si efectivamente es un array
+    if (reversedWord === word) {
+      // Si si lo es, primero verificamos que se reemplace la variable largest
+      // por el primer palindromo si es que no existe uno aún
+      if (largest == null || word.length > largest.length) {
+         // En caso de existir, se compara su longitud con el palindromo existente
+        largest = word;
+      }
+    }
+  }
+
+  // Al final siempre retornamos la variable largest
+  // Ya que si no existe ni uno solo en el array, su valor se mantiene como null
+  return largest;
+}
